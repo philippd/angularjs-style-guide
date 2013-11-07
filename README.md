@@ -188,6 +188,8 @@ This especially applies to a file that has so much code that you'd need to scrol
 
 #Testing
 
+TBD
+
 # General 
 ## Optimize the digest cycle
 
@@ -210,6 +212,3 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
-
-
-TBD
