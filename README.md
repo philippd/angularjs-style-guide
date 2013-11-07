@@ -33,7 +33,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 
 # Directory structure
 
-Since a large AngularJS application has many components it's best to structure them in a directory hierarchy.
+Since a large AngularJS application has many components, it's best to structure them in a directory hierarchy.
 We use the following approach:
 
 * High level division by functionality and lower level division by component types.
@@ -43,7 +43,7 @@ We use the following approach:
 * Routes are defined in JS file of the controller
 * The `app.js` file contains the main routes definition and configuration
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
-* The `common` module contains cross-cutting logic and components that should be easlily reusable for other applications
+* The `common` module contains cross-cutting concerns and components that should be easlily reusable for other applications
 
 Here is the layout:
 
@@ -88,10 +88,10 @@ Conventions about components naming can be found in each component section.
 
 * Do not manipulate DOM in your controllers. Use directives instead.
 * The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end.
+* The naming of the controller is done using the controllers functionality (for example shopping cart, homepage, admin panel) and the suffix `Ctrl`.
 * The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
+* Communicate between different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
 * When you need to format data, encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
