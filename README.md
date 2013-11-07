@@ -1,6 +1,6 @@
 #Introduction
 
-The goal of this style guide is to present a set of best practices and style guidelines for an AngularJS application.
+The goal of this style guide is to present a set of best practices and style guidelines for a AngularJS application.
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
@@ -17,6 +17,13 @@ Since a large AngularJS application has many components it's best to structure t
 We use the following approach:
 
 * High level division by functionality and lower level division by component types.
+* High level division = AngularJS module
+* Tests in the same directory as the tested component
+* HTML templates in the same directory as the corresponding controller
+* Routes are defined in JS file of the controller
+* The `app.js` file contains the main routes definition and configuration
+* Each JavaScript file should only hold a single component. The file should be named with the component's name.
+* The `common` module contains
 
 Here is the layout:
 
@@ -30,68 +37,37 @@ Here is the layout:
     │   │   └── services
     │   ├── page1
     │   │   ├── controllers
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   ├── FirstCtrl.spec.js
-    │   │   │   └── SecondCtrl.js
+    │   │   │   ├── PageCtrl.js
+    │   │   │   ├── PageCtrl.spec.js
+    │   │   │   └── page-1.tpl.html
     │   │   ├── directives
-    │   │   │   └── directive1.js
+    │   │   │   ├── directive1.js
+    │   │   │   └── directive1.spec.js
     │   │   ├── filters
     │   │   │   ├── filter1.js
-    │   │   │   └── filter2.js
+    │   │   │   └── filter1.spec.js
     │   │   └── services
     │   │       ├── service1.js
-    │   │       └── service2.js
+    │   │       └── service1.spec.js
     │   └── page2
     │       ├── controllers
-    │       │   └── ThirdCtrl.js
+    │       │   ├── OtherPageCtrl.js
+    │       │   ├── OtherPageCtrl.spec.js
+    │       │   └── other-page.tpl.html
     │       ├── directives
     │       │   ├── directive2.js
-    │       │   └── directive3.js
+    │       │   ├── directive2.spec.js
+    │       │   └── directive-2.tpl.html
     │       ├── filters
-    │       │   └── filter3.js
+    │       │   ├── filter2.js
+    │       │   └── filter2.spec.js
     │       └── services
-    │           └── service3.js
-    ├── lib
-
-* When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
-
-        app
-        └── directives
-            ├── directive1
-            │   ├── directive1.html
-            │   ├── directive1.js
-            │   └── directive1.sass
-            └── directive2
-                ├── directive2.html
-                ├── directive2.js
-                └── directive2.sass
-
-This approach can be combined with both directory structures above.
-* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
-
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
-
-* The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
-* Each JavaScript file should only hold a single component. The file should be named with the component's name.
-* Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+    │           ├── service2.js
+    │           └── service2.spec.js
+    └── components
 
 
 Conventions about components naming can be found in each component section.
-
-#Modules
-
-There are two common ways for structuring the modules:
-
-0. By functionality
-0. By component type
-
-Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
 
 #Controllers
 
@@ -168,6 +144,7 @@ This especially applies to a file that has so much code that you'd need to scrol
 
 #Templates
 
+* Use lower case name separated with dash and suffix tpl.html (some-page.tpl.html)
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
 * Avoid writing complex code in the template.
 * When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
@@ -207,7 +184,7 @@ TBD
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
+* Use `restangular` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
 * Don't use globals. Resolve all dependencies using Dependency Injection.
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
