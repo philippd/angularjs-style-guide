@@ -15,7 +15,6 @@ This guide was originally forked from https://github.com/mgechev/angularjs-style
     * `$timeout` instead of `setTimeout`
     * `$window` instead of `window`
     * `$document` instead of `document`
-    * `$http` instead of `$.ajax`
 
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
@@ -57,7 +56,7 @@ Here is the layout:
     │   │   ├── directives
     │   │   ├── filters
     │   │   └── services
-    │   ├── page1
+    │   ├── applicationModule1
     │   │   ├── controllers
     │   │   │   ├── PageCtrl.js
     │   │   │   ├── PageCtrl.spec.js
@@ -71,7 +70,7 @@ Here is the layout:
     │   │   └── services
     │   │       ├── service1.js
     │   │       └── service1.spec.js
-    │   └── page2
+    │   └── applicationModule1
     │       ├── controllers
     │       │   ├── OtherPageCtrl.js
     │       │   ├── OtherPageCtrl.spec.js
@@ -84,10 +83,22 @@ Here is the layout:
 
 Conventions about components naming can be found in each component section.
 
+#Modules
+* Use lowerCamelCase names for modules
+* Module hierarchies are separated by `.` in the example above we would therefore have the following module names
+
+
+    .
+    └── app
+        ├── app.common
+        ├── app.applicationModule1
+        └── app.applicationModule2
+
+
 #Controllers
 
+* The controllers are named UpperCamelCase (`HomePageCtrl`, `AdminPanelCtrl`, etc.).
 * Do not manipulate DOM in your controllers. Use directives instead.
-* The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * The naming of the controller is done using the controllers functionality (for example shopping cart, homepage, admin panel) and the suffix `Ctrl`.
 * The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
@@ -108,9 +119,8 @@ Conventions about components naming can be found in each component section.
 
 #Directives
 
-* Name your directives with lowerCamelCase
+* Name your directives with lowerCamelCase and prefix them to prevent name collisions with third-party libraries (`xySuperSlider`, `xyShinyPanel`, etc.).
 * Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-* Use custom prefixes for your directives to prevent name collisions with third-party libraries.
 * Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
 * DOM manipulations must be done only through directives.
 * Create an isolated scope when you develop reusable components.
@@ -119,7 +129,7 @@ Conventions about components naming can be found in each component section.
 
 #Filters
 
-* Name your filters with lowerCamelCase
+* Name your filters with lowerCamelCase (for `phoneFormat`)
 * Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
 
 #Services
@@ -134,7 +144,7 @@ Conventions about components naming can be found in each component section.
 * Use lower case name separated with dash and suffix tpl.html (some-page.tpl.html)
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
 * Avoid writing complex code in the template.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
+* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{ }}` template.
 
 #Routing
 
