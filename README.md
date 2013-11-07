@@ -85,14 +85,8 @@ Conventions about components naming can be found in each component section.
 
 #Modules
 * Use lowerCamelCase names for modules
-* Module hierarchies are separated by `.` in the example above we would therefore have the following module names
+* Module hierarchies are separated by `.` in the example above we would therefore have the following module names: app, app.common, app.applicationModule1 and app.applicationModule2
 
-
-    .
-    └── app
-        ├── app.common
-        ├── app.applicationModule1
-        └── app.applicationModule2
 
 
 #Controllers
@@ -129,7 +123,7 @@ Conventions about components naming can be found in each component section.
 
 #Filters
 
-* Name your filters with lowerCamelCase (for `phoneFormat`)
+* Name your filters with lowerCamelCase (for example `phoneFormat`)
 * Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
 
 #Services
