@@ -2,14 +2,7 @@
 
 The goal of this style guide is to present a set of best practices and style guidelines for a AngularJS application.
 
-In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
-
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
-0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
-
-For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+In this style guide you won't find common guidelines for JavaScript development. For this we use the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
 # General 
 
@@ -22,7 +15,7 @@ For AngularJS development recommended is the [Google's JavaScript style guide](h
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `restangular` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
+* Use [restangular](https://github.com/mgonto/restangular) instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
 * Don't use globals. Resolve all dependencies using Dependency Injection.
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
@@ -54,6 +47,8 @@ Here is the layout:
     │   ├── app.js
     │   ├── common
     │   │   ├── controllers
+    │   │   │   ├── ApplicationCtrl.js
+    │   │   │   └── ApplicationCtrl.spec.js
     │   │   ├── directives
     │   │   ├── filters
     │   │   └── services
@@ -76,13 +71,6 @@ Here is the layout:
     │       │   ├── OtherPageCtrl.js
     │       │   ├── OtherPageCtrl.spec.js
     │       │   └── other-page.tpl.html
-    │       ├── directives
-    │       │   ├── directive2.js
-    │       │   ├── directive2.spec.js
-    │       │   └── directive-2.tpl.html
-    │       ├── filters
-    │       │   ├── filter2.js
-    │       │   └── filter2.spec.js
     │       └── services
     │           ├── service2.js
     │           └── service2.spec.js
@@ -100,7 +88,7 @@ Conventions about components naming can be found in each component section.
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
 * Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
-* When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
+* When you need to format data, encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
 
         module.filter('myFormat', function () {
@@ -131,9 +119,9 @@ Conventions about components naming can be found in each component section.
 
 #Services
 
-* Use CamelCase to name your services.
+* Use UpperCamelCase to name your services.
 * Encapsulate business logic in services.
-* Services encapsulating business logic are preferably a `service` instead of a `factory`
+* For the difference between `service` and `factory`, see [this answer on StackOverflow](http://stackoverflow.com/questions/13762228/confused-about-service-vs-factory/13763886#13763886), note: services and factories create a singleton
 * For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
 
 #Templates
