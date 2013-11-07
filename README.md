@@ -11,6 +11,28 @@ In this style guide you won't find common guidelines for JavaScript development.
 
 For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
+# General 
+
+* Use:
+    * `$timeout` instead of `setTimeout`
+    * `$window` instead of `window`
+    * `$document` instead of `document`
+    * `$http` instead of `$.ajax`
+
+This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
+
+* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
+* Use `restangular` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
+* Don't use globals. Resolve all dependencies using Dependency Injection.
+* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
+* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
+* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+
+## Optimize the digest cycle
+
+* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
+* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
+
 # Directory structure
 
 Since a large AngularJS application has many components it's best to structure them in a directory hierarchy.
@@ -166,26 +188,3 @@ This especially applies to a file that has so much code that you'd need to scrol
 #Testing
 
 TBD
-
-# General 
-## Optimize the digest cycle
-
-* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
-* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
-
-## Others
-
-* Use:
-    * `$timeout` instead of `setTimeout`
-    * `$window` instead of `window`
-    * `$document` instead of `document`
-    * `$http` instead of `$.ajax`
-
-This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
-
-* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `restangular` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
-* Don't use globals. Resolve all dependencies using Dependency Injection.
-* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
-* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
