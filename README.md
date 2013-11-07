@@ -1,13 +1,6 @@
 #Introduction
 
-The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
-These best practices are collected from:
-
-0. AngularJS source code
-0. Source code or articles I've read
-0. My own experience
-
-**Note**: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+The goal of this style guide is to present a set of best practices and style guidelines for an AngularJS application.
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
@@ -18,66 +11,14 @@ In this style guide you won't find common guidelines for JavaScript development.
 
 For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
-
-#Table of content
-* [General](#general)
-    * [Directory structure](#directory-structure)
-    * [Optimize the digest cycle](#optimize-the-digest-cycle)
-    * [Others](#others)
-* [Modules](#modules)
-* [Controllers](#controllers)
-* [Directives](#directives)
-* [Filters](#filters)
-* [Services](#services)
-* [Templates](#templates)
-* [Routing](#routing)
-* [Testing](#testing)
-* [Contribution](#contribution)
-
-#General
-
-## Directory structure
+# Directory structure
 
 Since a large AngularJS application has many components it's best to structure them in a directory hierarchy.
-There are two main approaches:
+We use the following approach:
 
-* Creating high level division by component types and lower level division by functionality.
+* High level division by functionality and lower level division by component types.
 
-In this way the directory structure will look like:
-
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── controllers
-    │   │   ├── page1
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   └── page2
-    │   │       └── ThirdCtrl.js
-    │   ├── directives
-    │   │   ├── page1
-    │   │   │   └── directive1.js
-    │   │   └── page2
-    │   │       ├── directive2.js
-    │   │       └── directive3.js
-    │   ├── filters
-    │   │   ├── page1
-    │   │   └── page2
-    │   └── services
-    │       ├── CommonService.js
-    │       ├── cache
-    │       │   ├── Cache1.js
-    │       │   └── Cache2.js
-    │       └── models
-    │           ├── Model1.js
-    │           └── Model2.js
-    ├── lib
-    └── test
-
-* Creating high level division by functionality and lower level division by component types.
-
-Here is its layout:
+Here is the layout:
 
     .
     ├── app
@@ -90,6 +31,7 @@ Here is its layout:
     │   ├── page1
     │   │   ├── controllers
     │   │   │   ├── FirstCtrl.js
+    │   │   │   ├── FirstCtrl.spec.js
     │   │   │   └── SecondCtrl.js
     │   │   ├── directives
     │   │   │   └── directive1.js
@@ -110,7 +52,6 @@ Here is its layout:
     │       └── services
     │           └── service3.js
     ├── lib
-    └── test
 
 * When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
@@ -140,37 +81,8 @@ This approach can be combined with both directory structures above.
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
 * Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-I prefer the first structure because it makes the common components easier to find.
 
 Conventions about components naming can be found in each component section.
-
-## Optimize the digest cycle
-
-* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
-* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
-
-## Others
-
-* Use:
-    * `$timeout` instead of `setTimeout`
-    * `$window` instead of `window`
-    * `$document` instead of `document`
-    * `$http` instead of `$.ajax`
-
-This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
-
-* Automate your workflow using tools like:
-    * [Yeoman](http://yeoman.io)
-    * [Grunt](http://gruntjs.com)
-    * [Bower](http://bower.io)
-
-* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
-* Use an AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin) or [ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
-* Don't use globals. Resolve all dependencies using Dependency Injection.
-* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
-* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
 
 #Modules
 
@@ -276,9 +188,28 @@ This especially applies to a file that has so much code that you'd need to scrol
 
 #Testing
 
+# General 
+## Optimize the digest cycle
+
+* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
+* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
+
+## Others
+
+* Use:
+    * `$timeout` instead of `setTimeout`
+    * `$window` instead of `window`
+    * `$document` instead of `document`
+    * `$http` instead of `$.ajax`
+
+This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
+
+* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
+* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
+* Don't use globals. Resolve all dependencies using Dependency Injection.
+* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
+* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
+* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+
+
 TBD
-
-#Contribution
-
-Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
-For example, you can contribute by extending the Testing section or by translating the style guide to your language.
