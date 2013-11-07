@@ -85,7 +85,7 @@ Conventions about components naming can be found in each component section.
 
 #Modules
 * Use lowerCamelCase names for modules
-* Module hierarchies are separated by `.` in the example above we would therefore have the following module names: app, app.common, app.applicationModule1 and app.applicationModule2
+* Module hierarchies are separated by `.` in the example above we would therefore have the following module names: `app`, `app.common`, `app.applicationModule1` and `app.applicationModule2`
 
 
 
