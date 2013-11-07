@@ -4,6 +4,11 @@ The goal of this style guide is to present a set of best practices and style gui
 
 In this style guide you won't find common guidelines for JavaScript development. For this we use the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
+This guide was originally forked from https://github.com/mgechev/angularjs-style-guide and was adapted to our needs. It contains additional structuring suggestions and best practices from:
+* https://github.com/ngbp/ng-boilerplate
+* http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript
+* http://trochette.github.io/Angular-Design-Patterns-Best-Practices
+
 # General 
 
 * Use:
@@ -38,7 +43,7 @@ We use the following approach:
 * Routes are defined in JS file of the controller
 * The `app.js` file contains the main routes definition and configuration
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
-* The `common` module contains
+* The `common` module contains cross-cutting logic and components that should be easlily reusable for other applications
 
 Here is the layout:
 
