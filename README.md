@@ -124,7 +124,7 @@ Conventions about components naming can be found in each component section.
 
 #Services
 
-* Use UpperCamelCase to name your services.
+* Use lowerCamelCase to name your services.
 * Encapsulate business logic in services.
 * For the difference between `service` and `factory`, see [this answer on StackOverflow](http://stackoverflow.com/questions/13762228/confused-about-service-vs-factory/13763886#13763886), note: services and factories create a singleton
 * For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
