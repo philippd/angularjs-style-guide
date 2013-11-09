@@ -111,7 +111,7 @@ Conventions about components naming can be found in each component section.
           //body...
         });
        
-##`Controllers as` syntax
+##`Controller as` syntax
 * Use the `Controller as` syntax, this makes it easier to see which controller you are using in the templates
 * See: http://egghead.io/lessons/angularjs-experimental-controller-as-syntax (it's not experimental anymore, was released with 1.2.0)
 * Example:
