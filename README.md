@@ -110,6 +110,28 @@ Conventions about components naming can be found in each component section.
         module.controller('MyCtrl', function ($scope, myFormatFilter) {
           //body...
         });
+       
+##`Controllers as` syntax
+* Use the `Controller as` syntax, this makes it easier to see which controller you are using in the templates
+* See: http://egghead.io/lessons/angularjs-experimental-controller-as-syntax (it's not experimental anymore, was released with 1.2.0)
+* Example:
+
+
+         <div ng-controller="MainCtrl as main">
+            <div ng-controller="NestedCtrl as nested">
+               {{ nested.label }}
+               {{ main.label }}
+            </div>
+         </div>
+         
+         module.controller('MainCtrl', function () {
+            // Note: no $scope needed
+            this.label = 'Main label';
+         });
+         
+         module.controller('NestedCtrl', function () {
+            this.label = 'Nested label';
+         });
 
 #Directives
 
